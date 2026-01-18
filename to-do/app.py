@@ -1,4 +1,4 @@
-from flask import Flask , request
+from flask import Flask , request, render_template
 from dotenv import load_dotenv
 import os
 
@@ -15,7 +15,6 @@ collection = db["items"]
 
 
 
-
 app = Flask(__name__)
 
 
@@ -23,6 +22,10 @@ app.route('/submittodoitem', methods=['POST'])
 def submit():
     item_name = request.form.get("itemName")
     item_description = request.form.get("itemDescription")
+
+@app.route('/')
+def todo():
+    return render_template('index.html')
 
     collection.insert_one({
         "itemName": item_name,
