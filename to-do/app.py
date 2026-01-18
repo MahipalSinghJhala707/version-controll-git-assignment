@@ -18,20 +18,20 @@ collection = db["items"]
 app = Flask(__name__)
 
 
-app.route('/submittodoitem', methods=['POST'])
+@app.route('/submittodoitem', methods=['POST'])
 def submit():
     item_name = request.form.get("itemName")
     item_description = request.form.get("itemDescription")
-
-@app.route('/')
-def todo():
-    return render_template('index.html')
-
     collection.insert_one({
         "itemName": item_name,
         "itemDescription": item_description
     })
     return "Item Stored Successfully"
+
+@app.route('/')
+def todo():
+    return render_template('index.html')
+    
 
 
 if __name__ == "__main__":
